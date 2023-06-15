@@ -1,0 +1,77 @@
+# %%
+import pandas as pd
+import numpy as np
+df = pd.DataFrame()
+
+column_name = 'passingtime'
+
+min_deger = 1
+max_deger = 5
+df[column_name] = np.random.randint(min_deger, max_deger + 1, size=len(df))
+
+# %%
+import pandas as pd
+import numpy as np
+Yabby_numbers = 25
+column_names = ['Yabby{}'.format(i) for i in range(1,Yabby_numbers+1)]
+zero_array = np.zeros((1, Yabby_numbers))
+Yabbys = pd.DataFrame(zero_array, columns=column_names)
+Yabbys = Yabbys.T
+print(Yabbys)
+# %%
+import random
+from enum import Enum
+
+class RouteOfFabric(Enum):
+    Route_1 = [2,3,4]
+    Route_2 = [2,4,3]
+    Route_3 = [3,4,2]
+    Route_4 = [3,2,4]
+    Route_5 = [4,3,2]
+    Route_6 = [4,2,3]
+    Route_7 = [4,3]
+    Route_8 = [4,2]
+    Route_9 = [2,3]
+    Route_10 = [2,4]
+    Route_11 = [3,2]
+    Route_12 = [3,4]
+    Route_13 = [2]
+    Route_14 = [3]
+    Route_15 = [4]
+
+for _ in range(10):  # Specify the number of iterations as needed
+    random_route = random.choice(list(RouteOfFabric))
+    print(random_route)
+    print(random_route.value)
+
+# %%
+import pandas as pd
+fabrics_in_the_factory = pd.DataFrame()
+fabric_types = pd.read_csv('fabric_types.csv')
+fabric_types = fabric_types.reset_index(drop=True)
+random_row = fabric_types.sample()
+print("Rasgele Seçilen Satır:")
+print(str(random_row["KUMAS"].values[0]))
+# %%
+import pandas as pd
+
+data = {'Yabby': ['Yabby{}'.format(i+1) for i in range(25)],
+        'Using': [0.0] * 25}
+
+Yabbys = pd.DataFrame(data)
+
+print(Yabbys)
+# %%
+import pandas as pd
+import numpy as np
+
+data = {'Yabby': ['Yabby{}'.format(i+1) for i in range(25)],
+        'Using': [0.0] * 25}
+
+Yabbys = pd.DataFrame(data)
+filtered_index = Yabbys[Yabbys['Using'].astype(str).str.startswith('0')].index
+random_yabby = np.random.choice(filtered_index)
+Yabbys.at[random_yabby - 1, 'Using'] = 1.0
+using_yabby_device = Yabbys.iloc[random_yabby - 1]['Yabby']
+print(Yabbys.iloc[random_yabby - 1]['Yabby'], using_yabby_device)
+# %%
