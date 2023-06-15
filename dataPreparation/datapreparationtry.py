@@ -75,3 +75,28 @@ Yabbys.at[random_yabby - 1, 'Using'] = 1.0
 using_yabby_device = Yabbys.iloc[random_yabby - 1]['Yabby']
 print(Yabbys.iloc[random_yabby - 1]['Yabby'], using_yabby_device)
 # %%
+import pandas as pd
+
+zone_2 =[]
+zone_3 =[]
+zone_4 =[]
+bekleme_alani =[]
+
+random_create_fabric_info = pd.read_csv('fabrics_in_the_factory.csv')
+random_create_fabric_info["Datalogged"] = pd.to_datetime(random_create_fabric_info["Datalogged"])
+random_create_fabric_info  = random_create_fabric_info.sort_values("Datalogged")
+
+if len(zone_2) < 1:
+    random_create_fabric_info['Route']
+    for index, row in random_create_fabric_info.iterrows():
+        route_data = row["Route"]
+        zone_check = (route_data.split(',')).pop()
+        print(zone_check)
+        if zone_check == 2:
+            zone_2.append(row["Route"])
+            random_create_fabric_info.loc[index, 'Route'] = str(route_data)
+            break
+            
+        route_list = eval(route_data)
+print(random_create_fabric_info)
+# %%
