@@ -15,10 +15,11 @@ def simulation_function(random_create_fabric_info, yabbys):
     if len(zone_2) < zone_2_siniri:
         for index, row in random_create_fabric_info.iterrows():
             route_data = row["Route"]
+            print('buyukifegirdim')
             # route_data = random_create_fabric_info.loc[index, 'Route']
-            print(route_data)
             zone_check = route_data.pop()
-            if zone_check == 2:
+            print(zone_check)
+            if int(zone_check) == 2:
                 zone_2.append(row["Yabby"])
                 if len(route_data) == 0:
                     print('ife girdim')

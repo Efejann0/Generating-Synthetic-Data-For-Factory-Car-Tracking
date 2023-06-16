@@ -10,30 +10,13 @@ number_of_fabrics_in_the_factory = 18
 now_date = datetime.now()
 time = now_date - relativedelta(months=4)
 
-Route_1 = [2, 3, 4]
-Route_2 = [2, 4, 3]
-Route_3 = [3, 4, 2]
-Route_4 = [3, 2, 4]
-Route_5 = [4, 3, 2]
-Route_6 = [4, 2, 3]
-Route_7 = [4, 3]
-Route_8 = [4, 2]
-Route_9 = [2, 3]
-Route_10 = [2, 4]
-Route_11 = [3, 2]
-Route_12 = [3, 4]
-Route_13 = [2]
-Route_14 = [3]
-Route_15 = [4]
-
-# routes_array = [Route_1, Route_2, Route_3, Route_4, Route_5,
-#                          Route_6, Route_7, Route_8, Route_9, Route_10,
-#                          Route_11, Route_12, Route_13, Route_14, Route_15]
-routes_array =[Route_13, Route_14, Route_15]
-
 def random_route():
-    #rota seciyoruz
-    random_route = random.choice(routes_array)
+    #rota csvsini okuyoruz seciyoruz
+    random_route_type = pd.read_csv('dataPreparation\\route.csv')
+    random_route_type = random_route_type.reset_index(drop=True)
+    # rastgele bir rota seciyoruz
+    random_row = random_route_type.sample()
+    random_route = str(random_row["route"].values[0]).split(',')
     return random_route
 
 def random_fabric():

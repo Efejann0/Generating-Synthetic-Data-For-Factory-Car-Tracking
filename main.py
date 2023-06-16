@@ -7,7 +7,3 @@ def main():
     FactoryCircle.simulation_function(fabrics_in_the_factory, yabbys)
 if __name__ == "__main__":
     main()
-
-
-
-    #Rotalarida csv yap!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

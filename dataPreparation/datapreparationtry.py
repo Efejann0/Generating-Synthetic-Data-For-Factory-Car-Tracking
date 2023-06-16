@@ -100,3 +100,23 @@ if len(zone_2) < 1:
         route_list = eval(route_data)
 print(random_create_fabric_info)
 # %%
+# Route_1 = [2, 3, 4]
+# Route_2 = [2, 4, 3]
+# Route_3 = [3, 4, 2]
+# Route_4 = [3, 2, 4]
+# Route_5 = [4, 3, 2]
+# Route_6 = [4, 2, 3]
+# Route_7 = [4, 3]
+# Route_8 = [4, 2]
+# Route_9 = [2, 3]
+# Route_10 = [2, 4]
+# Route_11 = [3, 2]
+# Route_12 = [3, 4]
+# Route_13 = [2]
+# Route_14 = [3]
+# Route_15 = [4]
+
+# # routes_array = [Route_1, Route_2, Route_3, Route_4, Route_5,
+# #                          Route_6, Route_7, Route_8, Route_9, Route_10,
+# #                          Route_11, Route_12, Route_13, Route_14, Route_15]
+# routes_array =[Route_13, Route_14, Route_15]
