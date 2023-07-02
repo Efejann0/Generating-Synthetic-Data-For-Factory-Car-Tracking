@@ -6,7 +6,6 @@ zone_2_siniri = 1
 zone_2 =[]
 zone_3 =[]
 zone_4 =[]
-bekleme_alani =[]
 
 def simulation_function(random_create_fabric_info, yabbys):
     random_create_fabric_info["Datalogged"] = pd.to_datetime(random_create_fabric_info["Datalogged"])
