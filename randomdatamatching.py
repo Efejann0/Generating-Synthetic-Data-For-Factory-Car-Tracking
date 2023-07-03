@@ -1,11 +1,10 @@
-from enum import Enum
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import pandas as pd
 import numpy as np
 import random
 
-number_of_fabrics_in_the_factory = 18
+number_of_fabrics_in_the_factory = 1
 
 now_date = datetime.now()
 time = now_date - relativedelta(months=4)
@@ -142,5 +141,5 @@ def t_zero_monent():
                 fabrics_in_the_factory.columns[4]: 'sipno'}
     fabrics_in_the_factory = fabrics_in_the_factory.rename(columns=mapping)
     fabrics_in_the_factory.to_csv('dataPreparation\\fabrics_in_the_factory.csv', index=True)
-    print(fabrics_in_the_factory)
+    # print(fabrics_in_the_factory)
     return fabrics_in_the_factory, yabbys

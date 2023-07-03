@@ -14,6 +14,7 @@ islem_goren_kumaslar = []
 def simulation_function(random_create_fabric_info, yabbys):
     random_create_fabric_info["Datalogged"] = pd.to_datetime(random_create_fabric_info["Datalogged"])
     random_create_fabric_info  = random_create_fabric_info.sort_values("Datalogged", ascending = False)
+    print(random_create_fabric_info)
 
     if len(zone_2) < zone_2_siniri:
         count_zone_2 = 0
@@ -42,8 +43,7 @@ def simulation_function(random_create_fabric_info, yabbys):
                     if count_zone_2 == zone_2_siniri:
                         break
             else:
-                route_data.append(zone_check) 
-                break
+                route_data.append(zone_check)
 
     islem_goren_kumaslar.extend(zone_2)
     
@@ -83,6 +83,7 @@ def simulation_function(random_create_fabric_info, yabbys):
 
     islem_goren_kumaslar.extend(zone_4)
 
+
     if len(zone_3) < zone_3_siniri:
         count_zone_3 = 0
         for index, row in random_create_fabric_info.iterrows():
@@ -109,12 +110,11 @@ def simulation_function(random_create_fabric_info, yabbys):
                         random_create_fabric_info.at[index, 'latitude'] = latitude
                         random_create_fabric_info.at[index, 'longitude'] = longitude
                         random_create_fabric_info.at[index, 'zone'] = 3
-                        print('girdim gor beni')
                         if count_zone_3 == zone_3_siniri:
-                            break
+                            break   
                 else:
-                    route_data.append(zone_check)    
-                    break    
+                    route_data.append(zone_check)   
+                    break     
             else:
                 route_data.append(zone_check)
     
