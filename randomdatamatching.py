@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import random
 
-number_of_fabrics_in_the_factory = 1
+number_of_fabrics_in_the_factory = 18
 
 now_date = datetime.now()
 time = now_date - relativedelta(months=4)

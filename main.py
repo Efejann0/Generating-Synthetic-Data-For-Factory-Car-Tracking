@@ -5,6 +5,7 @@ import databasesave as dbsave
 count = 0
 
 def main():
+    global count
     fabrics_in_the_factory, yabbys = RandomDataMatching.t_zero_monent()
     while count <= 10:
         fabrics_in_the_factory, yabbys = FactoryCircle.simulation_function(fabrics_in_the_factory, yabbys)
