@@ -1,5 +1,6 @@
 import pandas as pd
 import randomdatamatching as RandomDataMatching
+import databasesave as dbsave
 
 zone_2_siniri = 4
 zone_3_siniri = 1
@@ -10,8 +11,10 @@ zone_3 = []
 zone_4 = []
 islem_goren_kumaslar = []
 
+used_fabric = pd.DataFrame()
 
 def simulation_function(random_create_fabric_info, yabbys):
+    global used_fabric
     random_create_fabric_info["Datalogged"] = pd.to_datetime(random_create_fabric_info["Datalogged"])
     random_create_fabric_info  = random_create_fabric_info.sort_values("Datalogged", ascending = False)
     print(random_create_fabric_info)
@@ -27,9 +30,22 @@ def simulation_function(random_create_fabric_info, yabbys):
                 zone_2.append(row["Yabby"])
                 if len(route_data) == 0:
                     count_zone_2 = count_zone_2 + 1
+                    # ----------------------------------------------------------------------
+                    update_time = RandomDataMatching.circle_increase_time(row["Datalogged"])
+                    new_data={'Kumas':[row["Kumas"]] ,
+                                  'Route':["bitti"],
+                                  'Yabby':[row["Yabby"]],
+                                  'Datalogged':[update_time],
+                                  'sipno':[row["sipno"]],
+                                  'latitude':[latitude],'longitude':[longitude],
+                                  'zone':[2] }
+                    used_fabric = pd.concat([used_fabric, pd.DataFrame(new_data)], ignore_index=True)
+                    dbsave.dbsave(used_fabric)
+                    #----------------------------------------------------
                     max_sipno = random_create_fabric_info['sipno'].max()
                     new_fabric = RandomDataMatching.create_new_fabric(row["Yabby"],row["Datalogged"],yabbys,max_sipno)
                     random_create_fabric_info.loc[index] = new_fabric
+                    zone_2.append(new_fabric["Yabby"])
                     if count_zone_2 == zone_2_siniri:
                         break
                 else:
@@ -60,9 +76,22 @@ def simulation_function(random_create_fabric_info, yabbys):
                     zone_4.append(row["Yabby"])
                     if len(route_data) == 0:
                         count_zone_4 = count_zone_4 + 1
+                        # ----------------------------------------------------------------------
+                        update_time = RandomDataMatching.circle_increase_time(row["Datalogged"])
+                        new_data={'Kumas':[row["Kumas"]] ,
+                                  'Route':["bitti"],
+                                  'Yabby':[row["Yabby"]],
+                                  'Datalogged':[update_time],
+                                  'sipno':[row["sipno"]],
+                                  'latitude':[latitude],'longitude':[longitude],
+                                  'zone':[4] }
+                        used_fabric = pd.concat([used_fabric, pd.DataFrame(new_data)], ignore_index=True)
+                        dbsave.dbsave(used_fabric)
+                        #----------------------------------------------------
                         max_sipno = random_create_fabric_info['sipno'].max()
                         new_fabric = RandomDataMatching.create_new_fabric(row["Yabby"],row["Datalogged"],yabbys,max_sipno)
                         random_create_fabric_info.loc[index] = new_fabric
+                        zone_4.append(new_fabric["Yabby"])
                         if count_zone_4 == zone_4_siniri:
                             break
                     else:
@@ -76,8 +105,7 @@ def simulation_function(random_create_fabric_info, yabbys):
                         if count_zone_4 == zone_4_siniri:
                             break   
                 else:
-                    route_data.append(zone_check)   
-                    break     
+                    route_data.append(zone_check)        
             else:
                 route_data.append(zone_check)
 
@@ -97,9 +125,22 @@ def simulation_function(random_create_fabric_info, yabbys):
                     zone_3.append(row["Yabby"])
                     if len(route_data) == 0:
                         count_zone_3 = count_zone_3 + 1
+                        # ----------------------------------------------------------------------
+                        update_time = RandomDataMatching.circle_increase_time(row["Datalogged"])
+                        new_data={'Kumas':[row["Kumas"]] ,
+                                  'Route':["bitti"],
+                                  'Yabby':[row["Yabby"]],
+                                  'Datalogged':[update_time],
+                                  'sipno':[row["sipno"]],
+                                  'latitude':[latitude],'longitude':[longitude],
+                                  'zone':[3]}
+                        used_fabric = pd.concat([used_fabric, pd.DataFrame(new_data)], ignore_index=True)
+                        dbsave.dbsave(used_fabric)
+                        #----------------------------------------------------
                         max_sipno = random_create_fabric_info['sipno'].max()
                         new_fabric = RandomDataMatching.create_new_fabric(row["Yabby"],row["Datalogged"],yabbys,max_sipno)
                         random_create_fabric_info.loc[index] = new_fabric
+                        zone_3.append(new_fabric["Yabby"])
                         if count_zone_3 == zone_3_siniri:
                             break
                     else:
@@ -113,8 +154,7 @@ def simulation_function(random_create_fabric_info, yabbys):
                         if count_zone_3 == zone_3_siniri:
                             break   
                 else:
-                    route_data.append(zone_check)   
-                    break     
+                    route_data.append(zone_check)        
             else:
                 route_data.append(zone_check)
     
@@ -134,7 +174,8 @@ def simulation_function(random_create_fabric_info, yabbys):
     zone_2.clear()
     zone_3.clear()
     zone_4.clear()
-    print('kullanilan yabbyler: ',islem_goren_kumaslar)
-    print('kalan liste: ',random_create_fabric_info)
+    # print('kullanilan yabbyler: ',islem_goren_kumaslar)
+    # print('kalan liste: ',random_create_fabric_info)
     islem_goren_kumaslar.clear()
+    used_fabric = used_fabric.iloc[0:0]
     return random_create_fabric_info,yabbys

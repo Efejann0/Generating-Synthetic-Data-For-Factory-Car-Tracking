@@ -4,20 +4,45 @@ import pandas as pd
 import numpy as np
 import random
 
-number_of_fabrics_in_the_factory = 18
+number_of_fabrics_in_the_factory = 1
 
 now_date = datetime.now()
-time = now_date - relativedelta(months=4)
+time = now_date - relativedelta(months=5)
 
 sipno = 0
 
-def random_route():
-    #rota csvsini okuyoruz seciyoruz
-    random_route_type = pd.read_csv('dataPreparation\\route.csv')
-    random_route_type = random_route_type.reset_index(drop=True)
-    # rastgele bir rota seciyoruz
-    random_row = random_route_type.sample()
-    random_route = str(random_row["route"].values[0]).split(',')
+def random_route(rand_fabric):
+#     "2,3,4"
+# "2,4,3"
+# "3,4,2"
+# "3,2,4"
+# "4,3,2"
+# "4,2,3"
+    if rand_fabric.find("SÜPREM") != -1:
+        random_route = [2,3,4]
+    elif rand_fabric.find("SüPREM") != -1:
+        random_route = [2,3,4]
+    elif rand_fabric.find("SUPREM") != -1:
+        random_route = [2,3,4]
+    elif rand_fabric.find("RİBANA") != -1:
+        random_route = [2,4,3]
+    elif rand_fabric.find("KAŞKORSE") != -1:
+        random_route = [3,4,2]
+    elif rand_fabric.find("FUTTER") != -1:
+        random_route = [3,2,4]
+    elif rand_fabric.find("İNTERLOK") != -1:
+        random_route = [4,3,2]
+    elif rand_fabric.find("SELANIK") != -1:
+        random_route = [4,2,3]
+    elif rand_fabric.find("SELANİK") != -1:
+        random_route = [4,2,3]
+    else:
+        #rota csvsini okuyoruz seciyoruz
+        random_route_type = pd.read_csv('dataPreparation\\route.csv')
+        random_route_type = random_route_type.reset_index(drop=True)
+        # rastgele bir rota seciyoruz
+        random_row = random_route_type.sample()
+        random_route = str(random_row["route"].values[0]).split(',')
     return random_route
 
 def random_fabric():
@@ -39,8 +64,8 @@ def create_yabbys_devices():
 
 def create_new_fabric(yabby,last_time,yabbys,max_sipno):
     last_time = circle_increase_time(last_time)
-    route_fabric = list(random_route())
     rand_fabric = random_fabric()
+    route_fabric = list(random_route(rand_fabric))
     latitude = -999
     longitude =-999
     zone = -1
@@ -51,7 +76,7 @@ def create_new_fabric(yabby,last_time,yabbys,max_sipno):
     yabbys.at[random_yabby, 'Using'] = 1
     max_sipno = max_sipno + 1
     using_yabby_device = yabbys.iloc[random_yabby]['Yabby']
-    new_data={'Kumas':rand_fabric ,'Route':route_fabric ,'Yabby':using_yabby_device,'Datalogged':time,'sipno':max_sipno,'latitude':latitude,'longitude':longitude,'zone':zone}
+    new_data={'Kumas':rand_fabric ,'Route':route_fabric ,'Yabby':using_yabby_device,'Datalogged':last_time,'sipno':max_sipno,'latitude':latitude,'longitude':longitude,'zone':zone}
     return new_data
 
 def generate_random_location(zone):
@@ -108,11 +133,11 @@ def t_zero_monent():
     fabrics_in_the_factory = pd.DataFrame()
     yabbys = create_yabbys_devices()
     for _ in range(number_of_fabrics_in_the_factory):
-        # enum classtan rota seciyoruz
-        route_fabric = random_route()
-
         # rastgele bir kumas seciyoruz
         rand_fabric = random_fabric()
+
+        # enum classtan rota seciyoruz
+        route_fabric = random_route(rand_fabric)
 
         #Atanicak yabby' belirliyoruz
         filtered_index = yabbys[yabbys['Using']==0].index
